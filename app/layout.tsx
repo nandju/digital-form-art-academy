@@ -5,6 +5,7 @@ import { SITE_CONFIG } from "@/constants/site";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteChrome } from "@/components/layout/site-chrome";
+import { AuthProvider } from "@/lib/auth-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -70,10 +71,12 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <TooltipProvider delay={200}>
-          <SiteChrome>{children}</SiteChrome>
-          <Toaster position="top-right" richColors closeButton />
-        </TooltipProvider>
+        <AuthProvider>
+          <TooltipProvider delay={200}>
+            <SiteChrome>{children}</SiteChrome>
+            <Toaster position="top-right" richColors closeButton />
+          </TooltipProvider>
+        </AuthProvider>
       </body>
     </html>
   );
