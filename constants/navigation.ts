@@ -13,7 +13,7 @@ export const MAIN_NAV: NavItem[] = [
     ],
   },
   { label: "Entreprises", href: "/entreprises" },
-  { label: "Tarifs", href: "/tarifs" },
+  { label: "Devenir formateur", href: "/devenir-formateur" },
   {
     label: "Ressources",
     href: "/blog",
@@ -76,10 +76,13 @@ export const TRAINER_SIDEBAR_NAV: NavItem[] = [
   { label: "Mes formations", href: "/formateur/formations" },
   { label: "Créer une formation", href: "/formateur/formations/creer" },
   { label: "Étudiants", href: "/formateur/etudiants" },
+  { label: "Certificats", href: "/formateur/certificats" },
   { label: "Questions", href: "/formateur/questions" },
   { label: "Statistiques", href: "/formateur/statistiques" },
   { label: "Revenus", href: "/formateur/revenus" },
+  { label: "Mon offre", href: "/formateur/tarifs" },
   { label: "Profil", href: "/formateur/profil" },
+  { label: "Paramètres", href: "/formateur/parametres" },
 ];
 
 export const ADMIN_SIDEBAR_NAV: NavItem[] = [

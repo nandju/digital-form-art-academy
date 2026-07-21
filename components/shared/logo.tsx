@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { LogoMark } from "@/components/shared/logo-mark";
+import { BRAND_LOGO } from "@/lib/media";
 
 interface LogoProps {
   className?: string;
@@ -30,7 +31,14 @@ export function Logo({
       )}
       aria-label="Digital FormArt Academy - Accueil"
     >
-      <LogoMark size={size} />
+      <Image
+        src={BRAND_LOGO}
+        alt="Digital FormArt Academy"
+        width={size}
+        height={size}
+        className="shrink-0 object-contain"
+        style={{ width: size, height: size }}
+      />
       <span className="flex flex-col leading-none">
         <span
           className={cn(

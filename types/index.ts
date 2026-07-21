@@ -115,15 +115,24 @@ export interface Student {
   certificatesEarned: number;
 }
 
+export type CertificateStatus = "en_attente" | "validee" | "rejetee";
+
 export interface Certificate {
   id: string;
   certificateNumber: string;
+  courseId?: string;
   courseTitle: string;
+  studentId?: string;
   studentName: string;
+  instructorId?: string;
   instructorName: string;
   issueDate: string;
   qrCode: string;
   grade: string;
+  status: CertificateStatus;
+  completionRate?: number;
+  quizAverage?: number;
+  requestedAt?: string;
 }
 
 export interface Notification {
@@ -176,6 +185,17 @@ export interface Article {
 }
 
 export interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  period: "mois" | "an";
+  description: string;
+  features: string[];
+  popular?: boolean;
+  cta: string;
+}
+
+export interface TrainerPricingPlan {
   id: string;
   name: string;
   price: number;

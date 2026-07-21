@@ -1,15 +1,25 @@
 import Link from "next/link";
-import { Clock, PlayCircle } from "lucide-react";
+import { Award, Clock, PlayCircle } from "lucide-react";
 
 import type { Course } from "@/types";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { MediaPlaceholder } from "@/components/shared/media-placeholder";
 import { RatingStars } from "@/components/shared/rating-stars";
 import { PriceTag } from "@/components/shared/price-tag";
 import { getInstructorById } from "@/data/instructors";
 
-export function CourseCard({ course, className }: { course: Course; className?: string }) {
+export function CourseCard({
+  course,
+  className,
+  progress,
+}: {
+  course: Course;
+  className?: string;
+  /** 0-100 progress shown when the student already purchased the course. */
+  progress?: number;
+}) {
   const instructor = getInstructorById(course.instructorId);
   const hours = Math.max(1, Math.round(course.duration / 60));
 
@@ -61,6 +71,23 @@ export function CourseCard({ course, className }: { course: Course; className?: 
           <span>{course.lessonsCount} leçons</span>
           <span className="capitalize">{course.level}</span>
         </div>
+
+        <div className="flex items-center gap-1.5 text-xs">
+          {course.certificateIncluded ? (
+            <span className="flex items-center gap-1 text-success">
+              <Award className="size-3.5" /> Certificat inclus
+            </span>
+          ) : (
+            <span className="text-muted-foreground">Sans certificat</span>
+          )}
+        </div>
+
+        {typeof progress === "number" && (
+          <div className="flex flex-col gap-1">
+            <Progress value={progress} />
+            <span className="text-xs text-muted-foreground">{progress}% complété</span>
+          </div>
+        )}
 
         <div className="mt-auto flex items-center justify-between pt-2">
           <PriceTag price={course.price} originalPrice={course.originalPrice} />

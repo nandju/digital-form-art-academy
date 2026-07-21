@@ -1,5 +1,8 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 import { GraduationCap, ImageIcon, User } from "lucide-react";
+import { pickAvatar, pickBanner, pickCourseCover, pickIllustration } from "@/lib/media";
 
 const GRADIENTS = [
   "from-[#123A7D] via-[#1E5BB8] to-[#4A90E2]",
@@ -21,21 +24,56 @@ interface MediaPlaceholderProps {
   seed: string;
   className?: string;
   variant?: "course" | "avatar" | "banner" | "illustration";
+  /** Force the gradient placeholder even if a real photo is available. */
+  forcePlaceholder?: boolean;
+  alt?: string;
 }
 
 /**
- * Elegant gradient placeholder used until real brand media
- * (public/assets/**) is supplied. Deterministic per `seed` so the same
- * course/instructor always renders the same visual.
+ * Renders a deterministic real photo (from `public/images`, see
+ * `lib/media.ts`) per `seed`/`variant`. Falls back to an elegant gradient
+ * placeholder when `forcePlaceholder` is set or no photo bucket applies.
  */
 export function MediaPlaceholder({
   seed,
   className,
   variant = "course",
+  forcePlaceholder = false,
+  alt = "Illustration Digital FormArt Academy",
 }: MediaPlaceholderProps) {
   const gradient = GRADIENTS[hashToIndex(seed, GRADIENTS.length)];
   const Icon =
     variant === "avatar" ? User : variant === "illustration" ? ImageIcon : GraduationCap;
+
+  const photoSrc = forcePlaceholder
+    ? null
+    : variant === "avatar"
+      ? pickAvatar(seed)
+      : variant === "banner"
+        ? pickBanner(seed)
+        : variant === "illustration"
+          ? pickIllustration(seed)
+          : pickCourseCover(seed);
+
+  if (photoSrc) {
+    return (
+      <div
+        className={cn(
+          "relative overflow-hidden",
+          variant === "avatar" ? "rounded-full" : "rounded-xl",
+          className
+        )}
+      >
+        <Image
+          src={photoSrc}
+          alt={alt}
+          fill
+          sizes="(max-width: 768px) 100vw, 400px"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
 
   return (
     <div

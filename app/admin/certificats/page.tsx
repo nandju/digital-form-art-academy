@@ -34,6 +34,7 @@ export default function AdminCertificatesPage() {
                 <th className="pb-3 font-medium">Formation</th>
                 <th className="pb-3 font-medium">Date</th>
                 <th className="pb-3 font-medium">Mention</th>
+                <th className="pb-3 font-medium">Statut</th>
                 <th className="pb-3 font-medium text-right">Actions</th>
               </tr>
             </thead>
@@ -46,6 +47,15 @@ export default function AdminCertificatesPage() {
                   <td className="py-3 text-muted-foreground">{new Date(cert.issueDate).toLocaleDateString("fr-FR")}</td>
                   <td className="py-3">
                     <Badge variant="secondary">{cert.grade}</Badge>
+                  </td>
+                  <td className="py-3">
+                    {cert.status === "en_attente" ? (
+                      <Badge variant="outline" className="text-warning border-warning/40">En attente</Badge>
+                    ) : cert.status === "rejetee" ? (
+                      <Badge variant="destructive">Rejeté</Badge>
+                    ) : (
+                      <Badge className="bg-success/10 text-success">Validé</Badge>
+                    )}
                   </td>
                   <td className="py-3 text-right">
                     <Button size="icon-sm" variant="ghost" onClick={() => toast.success(`Certificat ${cert.certificateNumber} ouvert.`)}>

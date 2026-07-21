@@ -12,7 +12,7 @@ import { STUDENTS } from "@/data/students";
 const badges = [
   { icon: Users, label: `${STUDENTS.length}+ étudiants actifs` },
   { icon: Star, label: "4.7/5 note moyenne" },
-  { icon: ShieldCheck, label: "Certificats reconnus" },
+  { icon: ShieldCheck, label: "Certificats reconnus en Côte d'Ivoire" },
 ];
 
 export function HomeHero() {
@@ -30,7 +30,7 @@ export function HomeHero() {
         >
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-light/30 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-secondary shadow-sm backdrop-blur">
             <Sparkles className="size-3.5" />
-            La référence de la formation numérique en Afrique
+            La 1ère plateforme de formation numérique en Côte d'Ivoire
           </span>
 
           <h1 className="font-heading text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
@@ -40,8 +40,9 @@ export function HomeHero() {
 
           <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
             Plus de 40 formations en développement, design, marketing, data et
-            entrepreneuriat, conçues par des experts africains pour vous faire
-            progresser rapidement, où que vous soyez.
+            entrepreneuriat, conçues par des experts ivoiriens et africains
+            pour vous faire progresser rapidement, depuis Abidjan ou partout
+            en Afrique francophone.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">

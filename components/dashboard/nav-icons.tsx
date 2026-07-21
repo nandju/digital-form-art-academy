@@ -41,10 +41,13 @@ export const NAV_ICONS: Record<string, typeof LayoutDashboard> = {
   "/formateur/formations": BookOpen,
   "/formateur/formations/creer": PlusCircle,
   "/formateur/etudiants": GraduationCap,
+  "/formateur/certificats": Award,
   "/formateur/questions": MessageSquare,
   "/formateur/statistiques": BarChart3,
   "/formateur/revenus": Wallet,
+  "/formateur/tarifs": Tag,
   "/formateur/profil": User,
+  "/formateur/parametres": Settings,
   // Admin
   "/admin": LayoutDashboard,
   "/admin/utilisateurs": Users,

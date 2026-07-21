@@ -15,11 +15,19 @@ function getInstructorName(id: string) {
   return INSTRUCTORS.find((i) => i.id === id)?.fullName ?? "Formateur";
 }
 
-const enrolled = COURSES.slice(0, 6).map((course, index) => ({
-  course,
-  progress: [72, 45, 90, 20, 65, 38][index],
-  lastAccessed: ["Aujourd'hui", "Hier", "Il y a 2 jours", "Il y a 3 jours", "La semaine dernière", "Il y a 2 semaines"][index],
-}));
+const enrolled = COURSES.slice(0, 6).map((course, index) => {
+  const progress = [72, 45, 90, 20, 65, 38][index];
+  const completedModules = Math.round((progress / 100) * course.modules.length);
+  const remainingMinutes = Math.max(0, Math.round(course.duration * (1 - progress / 100)));
+
+  return {
+    course,
+    progress,
+    completedModules,
+    remainingMinutes,
+    lastAccessed: ["Aujourd'hui", "Hier", "Il y a 2 jours", "Il y a 3 jours", "La semaine dernière", "Il y a 2 semaines"][index],
+  };
+});
 
 export default function StudentCoursesPage() {
   return (
@@ -36,7 +44,7 @@ export default function StudentCoursesPage() {
       />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {enrolled.map(({ course, progress, lastAccessed }) => (
+        {enrolled.map(({ course, progress, completedModules, remainingMinutes, lastAccessed }) => (
           <DashboardCard key={course.id} className="flex flex-col">
             <div className="mb-4 aspect-video overflow-hidden rounded-xl">
               <MediaPlaceholder seed={course.id} variant="course" className="h-full w-full" />
@@ -46,6 +54,12 @@ export default function StudentCoursesPage() {
             <div className="my-3 flex items-center gap-2">
               <Progress value={progress} className="h-2 flex-1" />
               <span className="text-xs font-medium text-foreground">{progress}%</span>
+            </div>
+            <div className="mb-3 flex items-center gap-3 text-xs text-muted-foreground">
+              <Badge variant="outline" className="text-[10px]">
+                {completedModules}/{course.modules.length} modules
+              </Badge>
+              <span>{remainingMinutes} min restantes</span>
             </div>
             <div className="mt-auto flex items-center justify-between">
               <span className="text-xs text-muted-foreground">{lastAccessed}</span>

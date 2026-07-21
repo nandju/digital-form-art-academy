@@ -19,7 +19,10 @@ const LAST_NAMES = [
 ];
 
 const CITIES = [
-  "Abidjan, Côte d'Ivoire", "Dakar, Sénégal", "Bamako, Mali", "Accra, Ghana",
+  "Abidjan, Côte d'Ivoire", "Abidjan, Côte d'Ivoire", "Abidjan, Côte d'Ivoire",
+  "Yamoussoukro, Côte d'Ivoire", "Bouaké, Côte d'Ivoire", "San-Pédro, Côte d'Ivoire",
+  "Korhogo, Côte d'Ivoire", "Daloa, Côte d'Ivoire", "Abidjan, Côte d'Ivoire",
+  "Dakar, Sénégal", "Bamako, Mali", "Accra, Ghana",
   "Lagos, Nigéria", "Cotonou, Bénin", "Ouagadougou, Burkina Faso",
   "Libreville, Gabon", "Conakry, Guinée", "Brazzaville, Congo",
   "Douala, Cameroun", "Lomé, Togo", "Niamey, Niger", "Kinshasa, RDC",

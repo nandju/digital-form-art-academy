@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Container } from "@/components/shared/container";
 import { PARTNERS } from "@/data/partners";
 
@@ -12,9 +14,22 @@ export function HomePartners() {
           {PARTNERS.map((partner) => (
             <div
               key={partner.id}
-              className="flex h-14 items-center justify-center rounded-xl border border-border bg-card px-4 text-sm font-semibold text-muted-foreground/70 grayscale transition-all hover:grayscale-0 hover:text-brand-primary"
+              className="flex h-14 items-center justify-center rounded-xl border border-border bg-card px-4 grayscale transition-all hover:grayscale-0"
             >
-              {partner.name}
+              {partner.logo.startsWith("/images/") ? (
+                <div className="relative h-8 w-full">
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                <span className="text-sm font-semibold text-muted-foreground/70 hover:text-brand-primary">
+                  {partner.name}
+                </span>
+              )}
             </div>
           ))}
         </div>

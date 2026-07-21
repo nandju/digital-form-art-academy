@@ -11,6 +11,16 @@ import { toast } from "sonner";
 
 const myCertificates = CERTIFICATES.slice(0, 8);
 
+function statusBadge(status: (typeof myCertificates)[number]["status"]) {
+  if (status === "en_attente") {
+    return <Badge variant="outline" className="text-[10px] text-warning border-warning/40">Demande en cours</Badge>;
+  }
+  if (status === "rejetee") {
+    return <Badge variant="destructive" className="text-[10px]">Rejeté</Badge>;
+  }
+  return <Badge variant="secondary" className="text-[10px]">Vérifié</Badge>;
+}
+
 export default function StudentCertificatesPage() {
   return (
     <div>
@@ -33,19 +43,39 @@ export default function StudentCertificatesPage() {
             </div>
             <div className="space-y-1 text-sm text-muted-foreground">
               <p><span className="font-medium text-foreground">Formateur :</span> {certificate.instructorName}</p>
-              <p><span className="font-medium text-foreground">Délivré le :</span> {new Date(certificate.issueDate).toLocaleDateString("fr-FR")}</p>
+              <p>
+                <span className="font-medium text-foreground">
+                  {certificate.status === "en_attente" ? "Demandé le :" : "Délivré le :"}
+                </span>{" "}
+                {new Date(certificate.requestedAt ?? certificate.issueDate).toLocaleDateString("fr-FR")}
+              </p>
               <p><span className="font-medium text-foreground">Mention :</span> {certificate.grade}</p>
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              <Badge variant="secondary" className="text-[10px]">Vérifié</Badge>
+              {statusBadge(certificate.status)}
               <div className="ml-auto flex items-center gap-2">
-                <Button size="icon-sm" variant="ghost" onClick={() => toast.success("Aperçu du certificat simulé.")}>
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  disabled={certificate.status !== "validee"}
+                  onClick={() => toast.success("Aperçu du certificat simulé.")}
+                >
                   <Eye className="size-4" />
                 </Button>
-                <Button size="icon-sm" variant="ghost" onClick={() => toast.success("Certificat téléchargé (simulation).")}>
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  disabled={certificate.status !== "validee"}
+                  onClick={() => toast.success("Certificat téléchargé (simulation).")}
+                >
                   <Download className="size-4" />
                 </Button>
-                <Button size="icon-sm" variant="ghost" onClick={() => toast.success("Lien de partage copié.")}>
+                <Button
+                  size="icon-sm"
+                  variant="ghost"
+                  disabled={certificate.status !== "validee"}
+                  onClick={() => toast.success("Lien de partage copié.")}
+                >
                   <Share2 className="size-4" />
                 </Button>
               </div>

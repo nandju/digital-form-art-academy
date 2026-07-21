@@ -316,7 +316,8 @@ export function CourseDetailView({
                 <Signal className="size-4" /> Niveau {course.level}
               </li>
               <li className="flex items-center gap-2">
-                <BadgeCheck className="size-4" /> Certificat inclus
+                <BadgeCheck className="size-4" />
+                {course.certificateIncluded ? "Certificat inclus" : "Sans certificat"}
               </li>
               <li className="flex items-center gap-2">
                 <Globe className="size-4" /> Accès à vie
