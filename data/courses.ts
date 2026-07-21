@@ -1,6 +1,7 @@
 import type { Course, CourseLevel, Module } from "@/types";
 import { CATEGORIES } from "@/data/categories";
 import { INSTRUCTORS } from "@/data/instructors";
+import { getDocumentContent, getDocumentImages, getModuleQuiz, getVideoEmbed } from "./seed-content";
 
 interface CourseSeed {
   title: string;
@@ -103,33 +104,45 @@ function slugify(value: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-function buildModules(courseIndex: number): Module[] {
-  const moduleCount = 3 + (courseIndex % 4); // 3 to 6 modules
+function buildModules(courseIndex: number, categoryName: string): Module[] {
+  const moduleCount = 4; // 4 modules per course for a clear demo
   const modules: Module[] = [];
 
   for (let m = 0; m < moduleCount; m++) {
-    const lessonCount = 4 + ((courseIndex + m) % 4); // 4 to 7 lessons
-    let moduleDuration = 0;
-    const lessons = Array.from({ length: lessonCount }, (_, l) => {
-      const duration = 6 + ((courseIndex + m + l) % 12); // minutes
-      moduleDuration += duration;
-      const type: "video" | "document" | "quiz" =
-        l === lessonCount - 1 ? "quiz" : l % 4 === 3 ? "document" : "video";
-      return {
-        id: `c${courseIndex}-m${m}-l${l}`,
-        title: `${LESSON_TITLES[l % LESSON_TITLES.length]}`,
-        type,
-        duration,
-        videoUrl: type === "video" ? "https://www.youtube.com/embed/dQw4w9WgXcQ" : undefined,
-      };
-    });
+    const moduleTitle = MODULE_TITLES[m % MODULE_TITLES.length];
+    const seed = `course-${courseIndex}-module-${m}`;
+    const moduleDuration = 12 + 8 + 5;
 
     modules.push({
       id: `c${courseIndex}-m${m}`,
-      title: MODULE_TITLES[m % MODULE_TITLES.length],
-      description: `Module ${m + 1} : approfondissez vos compétences étape par étape avec des exercices pratiques.`,
-      lessons,
+      title: moduleTitle,
+      description: `Module ${m + 1} : "${moduleTitle}" vous guide pas à pas avec une vidéo pédagogique, un document illustré et un quiz de validation.`,
       duration: moduleDuration,
+      lessons: [
+        {
+          id: `c${courseIndex}-m${m}-video`,
+          title: "Vidéo de cours",
+          type: "video",
+          duration: 12,
+          videoUrl: getVideoEmbed(seed),
+          content: `Regardez attentivement la vidéo du module "${moduleTitle}". Elle présente les notions essentielles sur lesquelles porte le quiz de validation.`,
+        },
+        {
+          id: `c${courseIndex}-m${m}-doc`,
+          title: "Document de synthèse",
+          type: "document",
+          duration: 8,
+          content: getDocumentContent(moduleTitle, categoryName),
+          images: getDocumentImages(seed),
+        },
+        {
+          id: `c${courseIndex}-m${m}-quiz`,
+          title: "Quiz de validation",
+          type: "quiz",
+          duration: 5,
+          quiz: getModuleQuiz(seed, moduleTitle, categoryName),
+        },
+      ],
     });
   }
 
@@ -139,7 +152,7 @@ function buildModules(courseIndex: number): Module[] {
 export const COURSES: Course[] = COURSE_SEEDS.map((seed, index) => {
   const category = CATEGORIES.find((c) => c.slug === seed.categorySlug) ?? CATEGORIES[0];
   const instructor = INSTRUCTORS[index % INSTRUCTORS.length];
-  const modules = buildModules(index);
+  const modules = buildModules(index, category.name);
   const lessonsCount = modules.reduce((sum, mod) => sum + mod.lessons.length, 0);
   const duration = modules.reduce((sum, mod) => sum + mod.duration, 0);
   const rating = Number((4.3 + ((index * 11) % 7) / 10).toFixed(1));
@@ -188,7 +201,7 @@ export const COURSES: Course[] = COURSE_SEEDS.map((seed, index) => {
     isNew: index % 9 === 0,
     updatedAt: "2026-06-15",
     createdAt: "2025-01-10",
-    certificateIncluded: true,
+    certificateIncluded: index % 3 !== 0,
     status: "publie",
   };
 });

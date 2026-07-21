@@ -10,7 +10,6 @@ import {
   Heart,
   Lock,
   PlayCircle,
-  ShoppingCart,
   Signal,
   Users,
 } from "lucide-react";
@@ -48,12 +47,6 @@ export function CourseDetailView({
   const similar = getCoursesByCategoryId(course.categoryId)
     .filter((c) => c.id !== course.id)
     .slice(0, 3);
-
-  const handleEnroll = () => {
-    toast.success("Formation ajoutée à votre panier", {
-      description: "Redirection vers le paiement simulé...",
-    });
-  };
 
   const handleWishlist = () => {
     toast("Ajouté à vos favoris", {
@@ -295,9 +288,14 @@ export function CourseDetailView({
             )}
 
             <div className="flex flex-col gap-2">
-              <Button size="lg" className="h-12" onClick={handleEnroll}>
-                <ShoppingCart className="size-4" />
-                S&apos;inscrire à la formation
+              <Button
+                size="lg"
+                className="h-12"
+                render={<Link href={`/formations/${course.slug}/apprendre`} />}
+                nativeButton={false}
+              >
+                <PlayCircle className="size-4" />
+                Commencer la formation
               </Button>
               <Button variant="outline" size="lg" className="h-12" onClick={handleWishlist}>
                 <Heart className="size-4" />

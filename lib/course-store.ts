@@ -38,7 +38,7 @@ function writeStorage(courses: Course[]) {
 
 function loadAll(): Course[] {
   const stored = readStorage();
-  if (stored) return stored;
+  if (stored && stored.length > 0) return stored;
   writeStorage(COURSES);
   return COURSES;
 }

@@ -61,6 +61,8 @@ export interface Lesson {
   completed?: boolean;
   locked?: boolean;
   videoUrl?: string;
+  content?: string;
+  images?: string[];
   quiz?: Quiz;
 }
 
