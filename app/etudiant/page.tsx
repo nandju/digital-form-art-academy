@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Award, BookOpen, Clock, Flame, PlayCircle, TrendingUp } from "lucide-react";
+import { Award, BookOpen, Clock, Flame, PlayCircle, Sparkles, TrendingUp } from "lucide-react";
 
 import { PageHeader, StatCard, DashboardCard } from "@/components/dashboard/dashboard-ui";
 import { TrendAreaChart, DonutChart } from "@/components/dashboard/charts";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { MediaPlaceholder } from "@/components/shared/media-placeholder";
 import { Badge } from "@/components/ui/badge";
+import { CourseCard } from "@/components/shared/course-card";
 import { COURSES } from "@/data/courses";
 import { studentLearningHours, studentProgressData } from "@/data/dashboard";
 import { useAuth } from "@/lib/auth-context";
@@ -16,7 +17,15 @@ import { useAuth } from "@/lib/auth-context";
 const enrolled = COURSES.slice(0, 4).map((course, index) => ({
   course,
   progress: [72, 45, 90, 20][index],
+  completedModules: Math.round(([72, 45, 90, 20][index] / 100) * course.modules.length),
+  remainingMinutes: Math.max(0, Math.round(course.duration * (1 - [72, 45, 90, 20][index] / 100))),
 }));
+
+const enrolledCourseIds = new Set(enrolled.map(({ course }) => course.id));
+const enrolledCategoryIds = new Set(enrolled.map(({ course }) => course.categoryId));
+const recommendations = COURSES.filter(
+  (c) => !enrolledCourseIds.has(c.id) && enrolledCategoryIds.has(c.categoryId)
+).slice(0, 3);
 
 export default function StudentDashboardPage() {
   const { user } = useAuth();
@@ -60,7 +69,7 @@ export default function StudentDashboardPage() {
         }
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {enrolled.map(({ course, progress }) => (
+          {enrolled.map(({ course, progress, completedModules, remainingMinutes }) => (
             <div key={course.id} className="flex gap-4 rounded-xl border border-border p-4">
               <div className="size-16 shrink-0 overflow-hidden rounded-lg">
                 <MediaPlaceholder seed={course.id} variant="course" className="h-full w-full" />
@@ -73,6 +82,9 @@ export default function StudentDashboardPage() {
                   </Badge>
                 </div>
                 <Progress value={progress} className="h-1.5" />
+                <p className="text-xs text-muted-foreground">
+                  {completedModules}/{course.modules.length} modules · {remainingMinutes} min restantes
+                </p>
                 <Button
                   size="sm"
                   variant="outline"
@@ -88,6 +100,24 @@ export default function StudentDashboardPage() {
           ))}
         </div>
       </DashboardCard>
+
+      {recommendations.length > 0 && (
+        <DashboardCard
+          title="Recommandations pour vous"
+          className="mt-6"
+          action={
+            <Link href="/catalogue" className="text-sm font-medium text-brand-secondary hover:underline">
+              Voir le catalogue
+            </Link>
+          }
+        >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {recommendations.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </div>
+        </DashboardCard>
+      )}
 
       <DashboardCard title="Objectif hebdomadaire" className="mt-6">
         <div className="flex items-center gap-4">

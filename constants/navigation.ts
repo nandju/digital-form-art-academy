@@ -12,18 +12,18 @@ export const MAIN_NAV: NavItem[] = [
       { label: "Rechercher", href: "/recherche" },
     ],
   },
-  { label: "Entreprises", href: "/entreprises" },
+  // { label: "Entreprises", href: "/entreprises" },
   { label: "Devenir formateur", href: "/devenir-formateur" },
-  {
-    label: "Ressources",
-    href: "/blog",
-    children: [
-      { label: "Blog", href: "/blog" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Témoignages", href: "/temoignages" },
-      { label: "Partenaires", href: "/partenaires" },
-    ],
-  },
+  // {
+  //   label: "Ressources",
+  //   href: "/blog",
+  //   children: [
+  //     { label: "Blog", href: "/blog" },
+  //     { label: "FAQ", href: "/faq" },
+  //     { label: "Témoignages", href: "/temoignages" },
+  //     { label: "Partenaires", href: "/partenaires" },
+  //   ],
+  // },
   { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ];
