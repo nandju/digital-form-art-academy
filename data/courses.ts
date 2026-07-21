@@ -189,6 +189,7 @@ export const COURSES: Course[] = COURSE_SEEDS.map((seed, index) => {
     updatedAt: "2026-06-15",
     createdAt: "2025-01-10",
     certificateIncluded: true,
+    status: "publie",
   };
 });
 

@@ -39,6 +39,20 @@ export interface Instructor {
   verified: boolean;
 }
 
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctOptionIndex: number;
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  passingScore: number;
+  questions: QuizQuestion[];
+}
+
 export interface Lesson {
   id: string;
   title: string;
@@ -47,6 +61,7 @@ export interface Lesson {
   completed?: boolean;
   locked?: boolean;
   videoUrl?: string;
+  quiz?: Quiz;
 }
 
 export interface Module {
@@ -67,6 +82,8 @@ export interface Review {
   date: string;
   helpful: number;
 }
+
+export type CourseStatus = "brouillon" | "publie" | "archive";
 
 export interface Course {
   id: string;
@@ -99,6 +116,7 @@ export interface Course {
   updatedAt: string;
   createdAt: string;
   certificateIncluded: boolean;
+  status: CourseStatus;
 }
 
 export interface Student {
