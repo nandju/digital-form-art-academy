@@ -118,6 +118,7 @@ export interface Course {
   updatedAt: string;
   createdAt: string;
   certificateIncluded: boolean;
+  summaryPdfUrl?: string;
   status: CourseStatus;
 }
 

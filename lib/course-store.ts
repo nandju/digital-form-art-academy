@@ -64,6 +64,7 @@ export interface CourseDraft {
   price: number;
   originalPrice?: number;
   certificateIncluded: boolean;
+  summaryPdfUrl?: string;
   learningOutcomes: string[];
   requirements: string[];
   tags: string[];
@@ -135,6 +136,7 @@ export function useTrainerCourses(instructorId: string) {
         updatedAt: now,
         createdAt: now,
         certificateIncluded: draft.certificateIncluded,
+        summaryPdfUrl: draft.summaryPdfUrl,
         status: draft.status ?? "brouillon",
       });
       persist([...all, newCourse]);

@@ -202,6 +202,10 @@ export const COURSES: Course[] = COURSE_SEEDS.map((seed, index) => {
     updatedAt: "2026-06-15",
     createdAt: "2025-01-10",
     certificateIncluded: index % 3 !== 0,
+    summaryPdfUrl:
+      index % 2 === 0
+        ? "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+        : undefined,
     status: "publie",
   };
 });

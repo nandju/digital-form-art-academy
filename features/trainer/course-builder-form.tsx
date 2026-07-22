@@ -56,6 +56,7 @@ interface GeneralInfo {
   certificateIncluded: boolean;
   learningOutcomes: string;
   requirements: string;
+  summaryPdfUrl: string;
   tags: string;
 }
 
@@ -70,6 +71,7 @@ function courseToGeneralInfo(course?: Course): GeneralInfo {
     price: course?.price ?? 15000,
     originalPrice: course?.originalPrice,
     certificateIncluded: course?.certificateIncluded ?? true,
+    summaryPdfUrl: course?.summaryPdfUrl ?? "",
     learningOutcomes: course?.learningOutcomes.join("\n") ?? "",
     requirements: course?.requirements.join("\n") ?? "",
     tags: course?.tags.join(", ") ?? "",
@@ -147,6 +149,7 @@ export function CourseBuilderForm({
     price: info.price,
     originalPrice: info.originalPrice,
     certificateIncluded: info.certificateIncluded,
+    summaryPdfUrl: info.summaryPdfUrl.trim(),
     learningOutcomes: info.learningOutcomes.split("\n").map((s) => s.trim()).filter(Boolean),
     requirements: info.requirements.split("\n").map((s) => s.trim()).filter(Boolean),
     tags: info.tags.split(",").map((s) => s.trim()).filter(Boolean),
@@ -172,6 +175,7 @@ export function CourseBuilderForm({
         price: draft.price,
         originalPrice: draft.originalPrice,
         certificateIncluded: draft.certificateIncluded,
+        summaryPdfUrl: draft.summaryPdfUrl,
         learningOutcomes: draft.learningOutcomes,
         requirements: draft.requirements,
         tags: draft.tags,
@@ -189,10 +193,10 @@ export function CourseBuilderForm({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-      <div className="space-y-6 lg:col-span-2">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <div className="space-y-8 lg:col-span-2">
         <DashboardCard title="Informations générales">
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="title">Titre de la formation</Label>
               <Input
@@ -221,7 +225,7 @@ export function CourseBuilderForm({
                 onChange={(e) => setField("description", e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="category">Catégorie</Label>
                 <Select value={info.categoryId} onValueChange={(v) => setField("categoryId", v ?? info.categoryId)}>
@@ -251,7 +255,7 @@ export function CourseBuilderForm({
                 </Select>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <Label htmlFor="tags">Tags (séparés par des virgules)</Label>
                 <Input id="tags" placeholder="React, Next.js, JavaScript" value={info.tags} onChange={(e) => setField("tags", e.target.value)} />
@@ -273,7 +277,7 @@ export function CourseBuilderForm({
         </DashboardCard>
 
         <DashboardCard title="Objectifs et prérequis">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="outcomes">Ce que les étudiants vont apprendre (une ligne par objectif)</Label>
               <Textarea
@@ -309,7 +313,7 @@ export function CourseBuilderForm({
           {modules.length === 0 && (
             <p className="text-sm text-muted-foreground">Aucun module pour le moment. Ajoutez votre premier module.</p>
           )}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {modules.map((module, moduleIndex) => (
               <div key={module.id} className="rounded-xl border border-border">
                 <div className="flex items-center gap-2 p-4">
@@ -406,9 +410,9 @@ export function CourseBuilderForm({
         </DashboardCard>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         <DashboardCard title="Prix et accessibilité">
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="price">Prix (FCFA)</Label>
               <Input
@@ -436,6 +440,20 @@ export function CourseBuilderForm({
                 checked={info.certificateIncluded}
                 onCheckedChange={(checked) => setField("certificateIncluded", checked)}
               />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="summaryPdfUrl">Document récapitulatif PDF (lien de téléchargement)</Label>
+              <Input
+                id="summaryPdfUrl"
+                type="url"
+                placeholder="https://exemple.com/mon-cours-recap.pdf"
+                value={info.summaryPdfUrl}
+                onChange={(e) => setField("summaryPdfUrl", e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                Les étudiants pourront télécharger ce PDF à la fin de la formation.
+              </p>
             </div>
           </div>
         </DashboardCard>

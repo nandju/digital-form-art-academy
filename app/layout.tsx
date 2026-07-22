@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     images: ["/assets/banners/og-default.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/images/logo_fond.jpeg",
   },
 };
 

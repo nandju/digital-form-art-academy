@@ -92,7 +92,7 @@ export default function StudentRegisterPage() {
       subtitle="Créez votre compte apprenant et commencez à développer vos compétences dès aujourd'hui."
       seed="auth-register-student"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className="flex items-center gap-4">
           <div className="relative flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-brand-bg text-muted-foreground">
             {photoPreview ? (

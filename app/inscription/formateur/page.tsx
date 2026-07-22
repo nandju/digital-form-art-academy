@@ -98,7 +98,7 @@ export default function TrainerRegisterPage() {
       subtitle="Partagez votre savoir, créez vos formations et touchez des milliers d'apprenants à travers la Côte d'Ivoire et l'Afrique francophone."
       seed="auth-register-trainer"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className="relative">
           <div className="relative h-24 w-full overflow-hidden rounded-xl border border-border bg-brand-bg">
             {coverPreview ? (

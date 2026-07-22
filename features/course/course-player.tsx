@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Award, CheckCircle2, ChevronLeft, ChevronRight, FileText, PlayCircle } from "lucide-react";
+import { Award, CheckCircle2, ChevronLeft, ChevronRight, Download, FileText, PlayCircle } from "lucide-react";
 
 import type { Course, Lesson, Module } from "@/types";
 import { Container } from "@/components/shared/container";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { MediaPlaceholder } from "@/components/shared/media-placeholder";
@@ -182,16 +182,29 @@ export function CoursePlayer({ course }: { course: Course }) {
             </Button>
           </div>
 
-          {course.certificateIncluded && courseComplete && (
+          {courseComplete && (
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-success/20 bg-success/5 p-6 text-center">
               <Award className="size-10 text-success" />
               <h3 className="font-heading text-lg font-semibold text-foreground">Formation terminée !</h3>
               <p className="text-sm text-muted-foreground">
-                Vous avez validé tous les modules. Demandez votre certificat depuis la page Certificats.
+                Vous avez validé tous les modules. {course.certificateIncluded && "Demandez votre certificat depuis la page Certificats."}
               </p>
-              <Button onClick={() => router.push("/etudiant/certificats")} className="w-fit">
-                Voir mes certificats
-              </Button>
+              {course.certificateIncluded && (
+                <Button onClick={() => router.push("/etudiant/certificats")} className="w-fit">
+                  Voir mes certificats
+                </Button>
+              )}
+              {course.summaryPdfUrl && (
+                <a
+                  href={course.summaryPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+                >
+                  <Download className="mr-2 size-4" />
+                  Télécharger le récapitulatif PDF
+                </a>
+              )}
             </div>
           )}
         </main>

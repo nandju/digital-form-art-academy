@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import {
   BadgeCheck,
   Clock,
+  Download,
   FileText,
   Globe,
   Heart,
@@ -320,6 +321,19 @@ export function CourseDetailView({
               <li className="flex items-center gap-2">
                 <Globe className="size-4" /> Accès à vie
               </li>
+              {course.summaryPdfUrl && (
+                <li className="flex items-center gap-2">
+                  <Download className="size-4" />
+                  <a
+                    href={course.summaryPdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-secondary hover:underline"
+                  >
+                    Récapitulatif PDF
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </aside>
