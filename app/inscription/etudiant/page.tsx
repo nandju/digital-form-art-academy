@@ -110,25 +110,25 @@ export default function StudentRegisterPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="fullName">Nom complet</Label>
           <Input id="fullName" placeholder="Votre nom complet" {...register("fullName")} />
           {errors.fullName && <p className="text-xs text-destructive">{errors.fullName.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="email">Adresse email</Label>
           <Input id="email" type="email" placeholder="vous@exemple.com" {...register("email")} />
           {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="password">Mot de passe</Label>
             <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
             {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="confirmPassword">Confirmer</Label>
             <Input id="confirmPassword" type="password" placeholder="••••••••" {...register("confirmPassword")} />
             {errors.confirmPassword && (
@@ -137,13 +137,13 @@ export default function StudentRegisterPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="program">Filière d&apos;étude</Label>
           <Input id="program" placeholder="Ex : Informatique, Gestion, Marketing..." {...register("program")} />
           {errors.program && <p className="text-xs text-destructive">{errors.program.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="level">Niveau d&apos;étude</Label>
           <Select value={level} onValueChange={(value) => setValue("level", value ?? "")}>
             <SelectTrigger id="level" className="w-full">
@@ -160,13 +160,13 @@ export default function StudentRegisterPage() {
           {errors.level && <p className="text-xs text-destructive">{errors.level.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="address">Adresse</Label>
           <Input id="address" placeholder="Ex : Cocody, Abidjan" {...register("address")} />
           {errors.address && <p className="text-xs text-destructive">{errors.address.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="bio">Bio (optionnel)</Label>
           <Textarea id="bio" rows={3} placeholder="Parlez-nous un peu de vous..." {...register("bio")} />
         </div>

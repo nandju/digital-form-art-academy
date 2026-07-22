@@ -197,7 +197,7 @@ export function CourseBuilderForm({
       <div className="space-y-8 lg:col-span-2">
         <DashboardCard title="Informations générales">
           <div className="space-y-5">
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="title">Titre de la formation</Label>
               <Input
                 id="title"
@@ -206,7 +206,7 @@ export function CourseBuilderForm({
                 onChange={(e) => setField("title", e.target.value)}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input
                 id="subtitle"
@@ -215,7 +215,7 @@ export function CourseBuilderForm({
                 onChange={(e) => setField("subtitle", e.target.value)}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
@@ -226,7 +226,7 @@ export function CourseBuilderForm({
               />
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="category">Catégorie</Label>
                 <Select value={info.categoryId} onValueChange={(v) => setField("categoryId", v ?? info.categoryId)}>
                   <SelectTrigger id="category" className="w-full">
@@ -241,7 +241,7 @@ export function CourseBuilderForm({
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="level">Niveau</Label>
                 <Select value={info.level} onValueChange={(v) => setField("level", (v as CourseLevel) ?? info.level)}>
                   <SelectTrigger id="level" className="w-full">
@@ -256,11 +256,11 @@ export function CourseBuilderForm({
               </div>
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="tags">Tags (séparés par des virgules)</Label>
                 <Input id="tags" placeholder="React, Next.js, JavaScript" value={info.tags} onChange={(e) => setField("tags", e.target.value)} />
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="language">Langue</Label>
                 <Select value={info.language} onValueChange={(v) => setField("language", (v as CourseLanguage) ?? info.language)}>
                   <SelectTrigger id="language" className="w-full">
@@ -278,7 +278,7 @@ export function CourseBuilderForm({
 
         <DashboardCard title="Objectifs et prérequis">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="outcomes">Ce que les étudiants vont apprendre (une ligne par objectif)</Label>
               <Textarea
                 id="outcomes"
@@ -288,7 +288,7 @@ export function CourseBuilderForm({
                 placeholder={"Comprendre les fondamentaux\nRéaliser un projet pratique"}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="requirements">Prérequis (une ligne par prérequis)</Label>
               <Textarea
                 id="requirements"
@@ -315,12 +315,12 @@ export function CourseBuilderForm({
           )}
           <div className="flex flex-col gap-5">
             {modules.map((module, moduleIndex) => (
-              <div key={module.id} className="rounded-xl border border-border">
-                <div className="flex items-center gap-2 p-4">
+              <div key={module.id} className="overflow-hidden rounded-xl border border-border">
+                <div className="flex items-center gap-3 p-4">
                   <button
                     type="button"
                     onClick={() => toggleExpanded(module.id)}
-                    className="flex size-7 shrink-0 items-center justify-center rounded-lg border border-border text-muted-foreground"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-brand-primary hover:text-brand-primary"
                   >
                     {expanded[module.id] ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
                   </button>
@@ -336,69 +336,78 @@ export function CourseBuilderForm({
                 </div>
 
                 {expanded[module.id] && (
-                  <div className="flex flex-col gap-3 border-t border-border p-4">
+                  <div className="flex flex-col gap-4 border-t border-border bg-brand-bg/30 p-4">
                     {module.lessons.map((lesson, lessonIndex) => (
-                      <div key={lesson.id} className="flex flex-wrap items-center gap-2 rounded-lg border border-border p-3">
-                        <span className="text-xs font-medium text-muted-foreground">#{lessonIndex + 1}</span>
-                        <Input
-                          value={lesson.title}
-                          onChange={(e) => updateLessonRow(module.id, lesson.id, { title: e.target.value })}
-                          placeholder="Titre de la leçon"
-                          className="min-w-[180px] flex-1"
-                        />
-                        <Select
-                          value={lesson.type}
-                          onValueChange={(v) =>
-                            updateLessonRow(module.id, lesson.id, { type: (v as Lesson["type"]) ?? lesson.type })
-                          }
-                        >
-                          <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="video">Vidéo</SelectItem>
-                            <SelectItem value="document">Document</SelectItem>
-                            <SelectItem value="quiz">Quiz</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <Input
-                          type="number"
-                          min={1}
-                          value={lesson.duration}
-                          onChange={(e) => updateLessonRow(module.id, lesson.id, { duration: Number(e.target.value) })}
-                          placeholder="Durée (min)"
-                          className="w-24"
-                        />
-                        {lesson.type === "video" && (
-                          <PlayCircle className="size-4 shrink-0 text-brand-secondary" />
-                        )}
-                        {lesson.type === "document" && (
-                          <FileText className="size-4 shrink-0 text-brand-secondary" />
-                        )}
-                        {lesson.type === "quiz" && (
-                          <QuizBuilderDialog
-                            quiz={lesson.quiz}
-                            onSave={(quiz) => setLessonQuizRow(module.id, lesson.id, quiz)}
-                            trigger={
-                              <Button type="button" size="sm" variant="outline">
-                                <ListChecks className="size-3.5" />
-                                {lesson.quiz ? `${lesson.quiz.questions.length} question(s)` : "Configurer"}
-                              </Button>
-                            }
+                      <div key={lesson.id} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
+                        <div className="flex items-center gap-2">
+                          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-bg text-xs font-semibold text-muted-foreground">
+                            {lessonIndex + 1}
+                          </span>
+                          <Input
+                            value={lesson.title}
+                            onChange={(e) => updateLessonRow(module.id, lesson.id, { title: e.target.value })}
+                            placeholder="Titre de la leçon"
+                            className="flex-1"
                           />
-                        )}
-                        <Button
-                          type="button"
-                          size="icon-sm"
-                          variant="ghost"
-                          className="ml-auto"
-                          onClick={() => removeLessonRow(module.id, lesson.id)}
-                        >
-                          <Trash2 className="size-3.5" />
-                        </Button>
+                          <Button
+                            type="button"
+                            size="icon-sm"
+                            variant="ghost"
+                            onClick={() => removeLessonRow(module.id, lesson.id)}
+                          >
+                            <Trash2 className="size-3.5" />
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3 pl-8">
+                          <Select
+                            value={lesson.type}
+                            onValueChange={(v) =>
+                              updateLessonRow(module.id, lesson.id, { type: (v as Lesson["type"]) ?? lesson.type })
+                            }
+                          >
+                            <SelectTrigger className="w-36">
+                              <SelectValue placeholder="Type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="video">Vidéo</SelectItem>
+                              <SelectItem value="document">Document</SelectItem>
+                              <SelectItem value="quiz">Quiz</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Input
+                            type="number"
+                            min={1}
+                            value={lesson.duration}
+                            onChange={(e) => updateLessonRow(module.id, lesson.id, { duration: Number(e.target.value) })}
+                            placeholder="Durée (min)"
+                            className="w-28"
+                          />
+                          {lesson.type === "video" && (
+                            <span className="flex items-center gap-1.5 text-xs text-brand-secondary">
+                              <PlayCircle className="size-4" /> Vidéo
+                            </span>
+                          )}
+                          {lesson.type === "document" && (
+                            <span className="flex items-center gap-1.5 text-xs text-brand-secondary">
+                              <FileText className="size-4" /> Document
+                            </span>
+                          )}
+                          {lesson.type === "quiz" && (
+                            <QuizBuilderDialog
+                              quiz={lesson.quiz}
+                              onSave={(quiz) => setLessonQuizRow(module.id, lesson.id, quiz)}
+                              trigger={
+                                <Button type="button" size="sm" variant="outline">
+                                  <ListChecks className="size-3.5" />
+                                  {lesson.quiz ? `${lesson.quiz.questions.length} question(s)` : "Configurer"}
+                                </Button>
+                              }
+                            />
+                          )}
+                        </div>
                       </div>
                     ))}
-                    <Button type="button" size="sm" variant="outline" onClick={() => addLessonRow(module.id)}>
+                    <Button type="button" size="sm" variant="outline" className="w-fit" onClick={() => addLessonRow(module.id)}>
                       <Plus className="size-3.5" />
                       Ajouter une leçon
                     </Button>
@@ -413,7 +422,7 @@ export function CourseBuilderForm({
       <div className="space-y-8">
         <DashboardCard title="Prix et accessibilité">
           <div className="space-y-5">
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="price">Prix (FCFA)</Label>
               <Input
                 id="price"
@@ -422,7 +431,7 @@ export function CourseBuilderForm({
                 onChange={(e) => setField("price", Number(e.target.value))}
               />
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="originalPrice">Prix barré (optionnel)</Label>
               <Input
                 id="originalPrice"
@@ -442,7 +451,7 @@ export function CourseBuilderForm({
               />
             </div>
 
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="summaryPdfUrl">Document récapitulatif PDF (lien de téléchargement)</Label>
               <Input
                 id="summaryPdfUrl"

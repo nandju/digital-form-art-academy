@@ -77,8 +77,8 @@ export default function LoginPage() {
       title="Connectez-vous à votre compte"
       subtitle="Accédez à vos formations, votre tableau de bord et bien plus."
     >
-      <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-3 gap-2">
+      <div className="flex flex-col gap-7">
+        <div className="grid grid-cols-3 gap-3">
           {roleOptions.map(({ value, label, icon: Icon }) => (
             <button
               key={value}
@@ -101,14 +101,14 @@ export default function LoginPage() {
           <span className="h-px flex-1 bg-border" />
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1.5">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="email">Adresse email</Label>
             <Input id="email" type="email" placeholder="vous@exemple.com" {...register("email")} />
             {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="password">Mot de passe</Label>
             <div className="relative">
               <Input
@@ -130,7 +130,7 @@ export default function LoginPage() {
             )}
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="role">Se connecter en tant que</Label>
             <Select value={role} onValueChange={(value) => setValue("role", value as DashboardRole)}>
               <SelectTrigger id="role" className="w-full">

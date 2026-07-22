@@ -220,6 +220,7 @@ export interface TrainerPricingPlan {
   id: string;
   name: string;
   price: number;
+  priceLabel?: string;
   period: "mois" | "an";
   description: string;
   features: string[];

@@ -20,7 +20,7 @@ export function AuthShell({
           <h1 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>
           <p className="text-sm text-muted-foreground">{subtitle}</p>
         </div>
-        <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-sm">
           {children}
         </div>
       </div>

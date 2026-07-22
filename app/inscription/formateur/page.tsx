@@ -135,25 +135,25 @@ export default function TrainerRegisterPage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="fullName">Nom complet</Label>
           <Input id="fullName" placeholder="Votre nom complet" {...register("fullName")} />
           {errors.fullName && <p className="text-xs text-destructive">{errors.fullName.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="email">Adresse email</Label>
           <Input id="email" type="email" placeholder="vous@exemple.com" {...register("email")} />
           {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="password">Mot de passe</Label>
             <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
             {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="confirmPassword">Confirmer</Label>
             <Input id="confirmPassword" type="password" placeholder="••••••••" {...register("confirmPassword")} />
             {errors.confirmPassword && (
@@ -163,45 +163,45 @@ export default function TrainerRegisterPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="title">Titre / Spécialité</Label>
             <Input id="title" placeholder="Ex : Expert Marketing Digital" {...register("title")} />
             {errors.title && <p className="text-xs text-destructive">{errors.title.message}</p>}
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="company">Entreprise (optionnel)</Label>
             <Input id="company" placeholder="Nom de votre entreprise" {...register("company")} />
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="location">Localisation</Label>
           <Input id="location" placeholder="Ex : Abidjan, Côte d'Ivoire" {...register("location")} />
           {errors.location && <p className="text-xs text-destructive">{errors.location.message}</p>}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="bio">Biographie</Label>
           <Textarea id="bio" rows={3} placeholder="Présentez votre parcours et votre expertise..." {...register("bio")} />
           {errors.bio && <p className="text-xs text-destructive">{errors.bio.message}</p>}
         </div>
 
         <div className="grid grid-cols-3 gap-3">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="linkedin">LinkedIn</Label>
             <Input id="linkedin" placeholder="URL" {...register("linkedin")} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="twitter">X / Twitter</Label>
             <Input id="twitter" placeholder="URL" {...register("twitter")} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="website">Site web</Label>
             <Input id="website" placeholder="URL" {...register("website")} />
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5 rounded-xl border border-border bg-brand-bg/50 p-4">
+        <div className="flex flex-col gap-2 rounded-xl border border-border bg-brand-bg/50 p-4">
           <Label>Délivrez-vous un certificat à vos étudiants ?</Label>
           <div className="grid grid-cols-2 gap-3">
             {([
@@ -225,7 +225,7 @@ export default function TrainerRegisterPage() {
           </div>
 
           {issuesCertificate === "yes" && (
-            <div className="mt-2 flex flex-col gap-1.5">
+            <div className="mt-2 flex flex-col gap-2">
               <Label htmlFor="taxpayerNumber">
                 Numéro de Compte Contribuable (NCC) de l&apos;entreprise
               </Label>
